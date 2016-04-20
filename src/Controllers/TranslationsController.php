@@ -1,6 +1,6 @@
-<?php namespace Hpolthof\Translation\Controllers;
+<?php namespace aktiweb\Translation\Controllers;
 
-use Hpolthof\Translation\TranslationException;
+use aktiweb\Translation\TranslationException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Stichoza\GoogleTranslate\TranslateClient;
@@ -20,7 +20,7 @@ class TranslationsController extends Controller {
     }
 
     public function getGroups() {
-        return \DB::table('translations')
+        return \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->select('group')
             ->distinct()
             ->orderBy('group')
@@ -28,7 +28,7 @@ class TranslationsController extends Controller {
     }
 
     public function getLocales() {
-        return \DB::table('translations')
+        return \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->select('locale')
             ->distinct()
             ->orderBy('locale')
@@ -38,13 +38,13 @@ class TranslationsController extends Controller {
     public function postItems(Request $request) {
         if(strlen($request->get('translate')) == 0) throw new TranslationException();
 
-        $base = \DB::table('translations')
+        $base = \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->select('name', 'value')
             ->where('locale', $request->get('locale'))
             ->where('group', $request->get('group'))
             ->orderBy('name')
             ->get();
-        $new = \DB::table('translations')
+        $new = \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->select('name', 'value')
             ->where('locale', strtolower($request->get('translate')))
             ->where('group', $request->get('group'))
@@ -64,7 +64,7 @@ class TranslationsController extends Controller {
     }
 
     public function postStore(Request $request) {
-        $item = \DB::table('translations')
+        $item = \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->where('locale', strtolower($request->get('locale')))
             ->where('group', $request->get('group'))
             ->where('name', $request->get('name'))->first();
@@ -81,9 +81,9 @@ class TranslationsController extends Controller {
             $data = array_merge($data, [
                 'created_at' => date_create(),
             ]);
-            $result = \DB::table('translations')->insert($data);
+            $result = \DB::connection(\Config::get('translation-db.database'))->table('translations')->insert($data);
         } else {
-            $result = \DB::table('translations')->where('id', $item->id)->update($data);
+            $result = \DB::connection(\Config::get('translation-db.database'))->table('translations')->where('id', $item->id)->update($data);
         }
 
         if(!$result) {
@@ -100,7 +100,7 @@ class TranslationsController extends Controller {
 
     public function postDelete(Request $request)
     {
-        \DB::table('translations')
+        \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->where('name', strtolower($request->get('name')))->delete();
         return 'OK';
     }

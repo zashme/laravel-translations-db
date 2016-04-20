@@ -1,6 +1,6 @@
 {
-  "name": "hpolthof/laravel-translations-db",
-  "description": "A database translations implementation for Laravel 5.",
+  "name": "aktiweb/laravel-translations-db",
+  "description": "A database translations implementation for Laravel 5, forked from hpolthof/laravel-translations-db",
   "license": "GPL2",
   "keywords": ["laravel", "translation", "localization", "database"],
   "authors": [
@@ -19,7 +19,7 @@
 
   "autoload": {
     "psr-4": {
-      "Hpolthof\\Translation\\": "src"
+      "aktiweb\\Translation\\": "src"
     }
   },
   "extra": {

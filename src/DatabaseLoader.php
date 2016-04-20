@@ -1,4 +1,4 @@
-<?php namespace Hpolthof\Translation;
+<?php namespace aktiweb\Translation;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Translation\LoaderInterface;
@@ -22,7 +22,7 @@ class DatabaseLoader implements LoaderInterface {
      */
     public function load($locale, $group, $namespace = null)
     {
-        return \DB::table('translations')
+        return \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->where('locale', $locale)
             ->where('group', $group)
             ->lists('value', 'name');
@@ -61,7 +61,7 @@ class DatabaseLoader implements LoaderInterface {
             throw new TranslationException('Could not extract key from translation.');
         }
 
-        $item = \DB::table('translations')
+        $item = \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->where('locale', $locale)
             ->where('group', $group)
             ->where('name', $name)->first();
@@ -76,10 +76,10 @@ class DatabaseLoader implements LoaderInterface {
             $data = array_merge($data, [
                 'created_at' => date_create(),
             ]);
-            \DB::table('translations')->insert($data);
+            \DB::connection(\Config::get('translation-db.database'))->table('translations')->insert($data);
         } else {
             if($this->_app['config']->get('translation-db.update_viewed_at')) {
-                \DB::table('translations')->where('id', $item->id)->update($data);
+                \DB::connection(\Config::get('translation-db.database'))->table('translations')->where('id', $item->id)->update($data);
             }
         }
     }

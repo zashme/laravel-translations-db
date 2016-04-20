@@ -1,4 +1,4 @@
-<?php namespace Hpolthof\Translation;;
+<?php namespace aktiweb\Translation;;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Translation\LoaderInterface;

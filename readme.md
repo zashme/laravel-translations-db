@@ -29,7 +29,7 @@ Find:
 ```
 and Replace this with:
 ```
-'Hpolthof\Translation\ServiceProvider',
+'aktiweb\Translation\ServiceProvider',
 ```
 
 The ServiceProvider will now be loaded. To use this package properly you'll also need the create a table in your database,
@@ -37,7 +37,7 @@ this can be achieved by publishing the config and migration of this package.
 
 Run the following command:
 ```
-php artisan vendor:publish --provider='Hpolthof\Translation\ServiceProvider'
+php artisan vendor:publish --provider='aktiweb\Translation\ServiceProvider'
 ```
 and afterwards run your migrations:
 ```

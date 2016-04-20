@@ -34,4 +34,6 @@ return [
      * happening.
      */
     'minimal' => false,
+    
+    'database' => Config::get('database.default'),
 ];
