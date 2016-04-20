@@ -35,5 +35,7 @@ return [
      */
     'minimal' => false,
     
-    'database' => Config::get('database.default'),
+    'database' => 'mysql',
+
+    'fallback_locale' => 'de',
 ];

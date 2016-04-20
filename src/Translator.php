@@ -52,10 +52,13 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
 			if ( ! is_null($line)) break;
 		}
 
-		// If the line doesn't exist, we will return back the key which was requested as
-		// that will be quick to spot in the UI if language keys are wrong or missing
-		// from the application's language files. Otherwise we can return the line.
-		if ( ! isset($line)) return $key;
+        if ($locale != \Config::get('translation-db.fallback_locale') && ! isset($line)) {
+            return $this->get($key, $replace, \Config::get('translation-db.fallback_locale'), $fallback);
+        }
+
+        if (! isset($line)) {
+            return $key;
+        }
 
 		return $line;
 	}
