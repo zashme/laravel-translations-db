@@ -1,4 +1,4 @@
-<?php namespace aktiweb\Translation;;
+<?php namespace Aktiweb\Translation;;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Translation\LoaderInterface;

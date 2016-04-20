@@ -1,4 +1,4 @@
-<?php namespace aktiweb\Translation\Console\Commands;
+<?php namespace Aktiweb\Translation\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Query\Builder;

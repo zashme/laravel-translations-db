@@ -1,4 +1,4 @@
-<?php namespace aktiweb\Translation\DataCollector;
+<?php namespace Aktiweb\Translation\DataCollector;
 
 use DebugBar\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\Util\ValueExporter;

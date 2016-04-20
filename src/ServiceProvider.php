@@ -1,4 +1,4 @@
-<?php namespace aktiweb\Translation;
+<?php namespace Aktiweb\Translation;
 
 use Illuminate\Translation\FileLoader;
 
@@ -12,8 +12,8 @@ class ServiceProvider extends \Illuminate\Translation\TranslationServiceProvider
 	protected $defer = false;
 
 	protected $commands = [
-		'aktiweb\Translation\Console\Commands\DumpCommand',
-		'aktiweb\Translation\Console\Commands\FetchCommand',
+		'Aktiweb\Translation\Console\Commands\DumpCommand',
+		'Aktiweb\Translation\Console\Commands\FetchCommand',
 	];
 
 	/**
@@ -66,7 +66,7 @@ class ServiceProvider extends \Illuminate\Translation\TranslationServiceProvider
 		// Only in debug mode the translations interface should be available.
 		if($this->app['config']->get('app.debug') && $this->app['config']->get('translation-db.webinterface')) {
 			$routeConfig = [
-				'namespace' => 'aktiweb\Translation\Controllers',
+				'namespace' => 'Aktiweb\Translation\Controllers',
 				'prefix' => $this->app['config']->get('translation-db.route_prefix'),
 			];
 			$this->app['router']->group($routeConfig, function($router) {

@@ -1,6 +1,6 @@
-<?php namespace aktiweb\Translation\Controllers;
+<?php namespace Aktiweb\Translation\Controllers;
 
-use aktiweb\Translation\TranslationException;
+use Aktiweb\Translation\TranslationException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Stichoza\GoogleTranslate\TranslateClient;
