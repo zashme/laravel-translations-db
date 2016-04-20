@@ -60,46 +60,6 @@ class ServiceProvider extends \Illuminate\Translation\TranslationServiceProvider
 			__DIR__.'/../config/translation-db.php' => config_path('translation-db.php'),
 		]);
 
-		$this->loadViewsFrom(__DIR__.'/../views', 'translation');
-		$this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'translation');
-
-		// Only in debug mode the translations interface should be available.
-		if($this->app['config']->get('app.debug') && $this->app['config']->get('translation-db.webinterface')) {
-			$routeConfig = [
-				'namespace' => 'Aktiweb\Translation\Controllers',
-				'prefix' => $this->app['config']->get('translation-db.route_prefix'),
-			];
-			$this->app['router']->group($routeConfig, function($router) {
-				$router->get('/', [
-					'uses' => 'TranslationsController@getIndex',
-					'as' => 'translations.index',
-				]);
-				$router->get('/groups', [
-					'uses' => 'TranslationsController@getGroups',
-					'as' => 'translations.groups',
-				]);
-				$router->get('/locales', [
-					'uses' => 'TranslationsController@getLocales',
-					'as' => 'translations.locales',
-				]);
-				$router->post('/items', [
-					'uses' => 'TranslationsController@postItems',
-					'as' => 'translations.items',
-				]);
-				$router->post('/store', [
-					'uses' => 'TranslationsController@postStore',
-					'as' => 'translations.store',
-				]);
-				$router->post('/translate', [
-					'uses' => 'TranslationsController@postTranslate',
-					'as' => 'translations.translate',
-				]);
-				$router->post('/delete', [
-					'uses' => 'TranslationsController@postDelete',
-					'as' => 'translations.delete',
-				]);
-			});
-		}
 
 		$this->app['translation.database']->addNamespace(null, null);
 	}
