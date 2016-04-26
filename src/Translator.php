@@ -52,9 +52,9 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
 			if ( ! is_null($line)) break;
 		}
 
-        if ($locale != \Config::get('translation-db.fallback_locale') && ! isset($line)) {
+/*        if ($locale != \Config::get('translation-db.fallback_locale') && ! isset($line)) {
             return $this->get($key, $replace, \Config::get('translation-db.fallback_locale'), $fallback);
-        }
+        }*/
 
         if (! isset($line)) {
             return $key;
