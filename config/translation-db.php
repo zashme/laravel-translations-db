@@ -34,7 +34,11 @@ return [
      * happening.
      */
     'minimal' => false,
-    
+
+    'cache_prefix' => '_translations',
+
+    'cache_tag' => 'trans',
+
     'database' => 'mysql',
 
     'fallback_locale' => 'de',
