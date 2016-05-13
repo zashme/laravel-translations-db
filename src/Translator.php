@@ -31,6 +31,10 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
 	 */
 	public function get($key, array $replace = array(), $locale = null, $fallback = true)
 	{
+        if (is_null($key)) {
+            return '';
+        }
+
 		list($namespace, $group, $item) = $this->parseKey($key);
 
 		// Here we will get the locale that should be used for the language line. If one
