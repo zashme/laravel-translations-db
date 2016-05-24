@@ -90,7 +90,7 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
             if (\Config::get('translation-db.use_cache')) {
                 $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group;
                 $lines = \Cache::tags(\Config::get('translation-db.cache_tag'))
-                    ->rememberForever($cacheIdentifier, function () use ($that, $locale, $group, $namespace) {
+                    ->rememberForever($cacheIdentifier, function () use ($locale, $group, $namespace) {
                         return $this->database->load($locale, $group, $namespace);
                     });
             }
