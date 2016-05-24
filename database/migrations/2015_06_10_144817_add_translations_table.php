@@ -5,35 +5,35 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddTranslationsTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('translations', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('locale');
-			$table->string('group');
-			$table->string('name');
-			$table->text('value')->nullable();
-			$table->timestamps();
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('translations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('locale');
+            $table->string('group');
+            $table->string('name');
+            $table->text('value')->nullable();
+            $table->timestamps();
 
-			$table->index(['locale', 'group']);
-			$table->unique(['locale', 'group', 'name']);
-		});
-	}
+            $table->index(['locale', 'group']);
+            $table->unique(['locale', 'group', 'name']);
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('translations');
-	}
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('translations');
+    }
 
 }
