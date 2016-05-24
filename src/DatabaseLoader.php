@@ -41,19 +41,15 @@ class DatabaseLoader implements LoaderInterface {
     public function addNamespace($namespace, $hint) {}
 
     /**
-     * Adds a new translation to the database or
-     * updates an existing record if the viewed_at
-     * updates are allowed.
+     * Adds a new translation to the database
      *
      * @param string $locale
      * @param string $group
-     * @param string $name
+     * @param string $key
      * @return void
      */
     public function addTranslation($locale, $group, $key)
     {
-        if(!\Config::get('app.debug') || \Config::get('translation-db.minimal')) return;
-
         // Extract the real key from the translation.
         if (preg_match("/^{$group}\.(.*?)$/sm", $key, $match)) {
             $name = $match[1];
@@ -66,21 +62,10 @@ class DatabaseLoader implements LoaderInterface {
             ->where('group', $group)
             ->where('name', $name)->first();
 
-        $data = compact('locale', 'group', 'name');
-        $data = array_merge($data, [
-            'viewed_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
         if($item === null) {
-            $data = array_merge($data, [
-                'created_at' => date_create(),
-            ]);
+            $data = compact('locale', 'group', 'name');
+            $data = array_merge($data, ['updated_at' => date_create(), 'created_at' => date_create()]);
             \DB::connection(\Config::get('translation-db.database'))->table('translations')->insert($data);
-        } else {
-            if($this->_app['config']->get('translation-db.update_viewed_at')) {
-                \DB::connection(\Config::get('translation-db.database'))->table('translations')->where('id', $item->id)->update($data);
-            }
         }
     }
 }

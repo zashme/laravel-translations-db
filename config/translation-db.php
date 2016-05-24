@@ -2,12 +2,6 @@
 
 return [
     /**
-     * To save some time interacting with the database, you can turn
-     * the storing of the viewed_at field off.
-     */
-    'update_viewed_at' => true,
-
-    /**
      * This setting enables or disables the web interface and its routes.
      */
     'webinterface' => true,
@@ -33,7 +27,7 @@ return [
      * This can be used to prevent lots of queries from
      * happening.
      */
-    'minimal' => false,
+    'minimal' => env('CACHE_TRANSLATION', false),
 
     'cache_prefix' => '_translations',
 

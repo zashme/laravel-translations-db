@@ -19,7 +19,6 @@ class AddTranslationsTable extends Migration {
 			$table->string('group');
 			$table->string('name');
 			$table->text('value')->nullable();
-			$table->timestamp('viewed_at')->nullable();
 			$table->timestamps();
 
 			$table->index(['locale', 'group']);
