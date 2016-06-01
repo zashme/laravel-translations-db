@@ -56,8 +56,17 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
         // the translator was instantiated. Then, we can load the lines and return.
         foreach ($this->parseLocale($locale) as $locale) {
             if (!self::isNamespaced($namespace)) {
-                // Database stuff
-                $this->database->addTranslation($locale, $group, $key);
+                if (\Config::get('translation-db.use_cache')) {
+                    $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group;
+                    \Cache::tags(\Config::get('translation-db.cache_tag'))
+                        ->rememberForever($cacheIdentifier, function () use ($locale, $group, $namespace, $key) {
+                            $this->database->addTranslation($locale, $group, $key);
+                            return $this->database->load($locale, $group, $namespace);
+                        });
+                }
+                else {
+                    $this->database->load($locale, $group, $namespace);
+                }
             }
 
             $this->load($namespace, $group, $locale);
