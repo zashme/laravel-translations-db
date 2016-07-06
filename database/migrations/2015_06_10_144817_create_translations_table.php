@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTranslationsTable extends Migration {
+class CreateTranslationsTable extends Migration {
 
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class AddTranslationsTable extends Migration {
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('locale');
-            $table->string('group');
-            $table->string('name');
+            $table->string('locale', 5);
+            $table->string('group', 25);
+            $table->string('name', 50);
             $table->text('value')->nullable();
             $table->timestamps();
 
