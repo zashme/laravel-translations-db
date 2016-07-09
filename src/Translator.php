@@ -15,6 +15,11 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
      */
     protected $app = null;
 
+    /**
+     * @var DatabaseLoader|null
+     */
+    protected $database = null;
+
 
     public function __construct(LoaderInterface $database, LoaderInterface $loader, $locale, Application $app)
     {
@@ -51,38 +56,16 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
 
         list($namespace, $group, $item) = $this->parseKey($key);
 
-        // Here we will get the locale that should be used for the language line. If one
-        // was not passed, we will use the default locales which was given to us when
-        // the translator was instantiated. Then, we can load the lines and return.
-        foreach ($this->parseLocale($locale) as $locale) {
-            if (!self::isNamespaced($namespace)) {
-                if (\Config::get('translation-db.use_cache')) {
-                    $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group;
-                    \Cache::tags(\Config::get('translation-db.cache_tag'))
-                        ->rememberForever($cacheIdentifier, function () use ($locale, $group, $namespace, $key) {
-                            $this->database->addTranslation($locale, $group, $key);
-                            return $this->database->load($locale, $group, $namespace);
-                        });
-                }
-                else {
-                    $this->database->load($locale, $group, $namespace);
-                }
-            }
-
-            $this->load($namespace, $group, $locale);
-
-            $line = $this->getLine($namespace, $group, $locale, $item, $replace);
-
+        // Get the locale that should be used
+        foreach ($this->parseLocale($locale) as $l) {
+            $this->load($namespace, $group, $l);
+            $line = $this->getLine($namespace, $group, $l, $item, $replace);
             if (! is_null($line)) {
                 break;
             }
         }
 
-        if (! isset($line)) {
-            return $key;
-        }
-
-        return $line;
+        return isset($line) ? $line : $key;
     }
 
 
@@ -93,24 +76,35 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
      */
     public function load($namespace, $group, $locale)
     {
-        if ($this->isLoaded($namespace, $group, $locale)) return;
+        if ($this->isLoaded($namespace, $group, $locale)) {
+            return;
+        }
 
-        if (!self::isNamespaced($namespace)) {
-            if (\Config::get('translation-db.use_cache')) {
-                $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group;
-                $lines = \Cache::tags(\Config::get('translation-db.cache_tag'))
-                    ->rememberForever($cacheIdentifier, function () use ($locale, $group, $namespace) {
-                        return $this->database->load($locale, $group, $namespace);
-                    });
-            }
-            else {
-                $lines = $this->database->load($locale, $group, $namespace);
-            }
+        // Load cached or from database
+        if (\Config::get('translation-db.use_cache')) {
+            $this->loaded[$namespace][$group][$locale] = $this->loadCached($locale, $group, $namespace);
+            return;
         }
-        else {
-            $lines = $this->loader->load($locale, $group, $namespace);
-        }
-        $this->loaded[$namespace][$group][$locale] = $lines;
+
+        $this->loaded[$namespace][$group][$locale] = $this->database->load($locale, $group, $namespace);
+    }
+
+
+    /**
+     * @param string $locale
+     * @param string $group
+     * @param string $namespace
+     *
+     * @return string
+     */
+    protected function loadCached($locale, $group, $namespace)
+    {
+        $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group;
+
+        return \Cache::tags(\Config::get('translation-db.cache_tag'))
+            ->rememberForever($cacheIdentifier, function () use ($locale, $group, $namespace) {
+                return $this->database->load($locale, $group, $namespace);
+            });
     }
 
 }
