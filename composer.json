@@ -3,12 +3,6 @@
     "description": "A database translations implementation for Laravel 5",
     "license": "GPL2",
     "version": "0.6.0",
-    "keywords": [
-        "laravel",
-        "translation",
-        "localization",
-        "database"
-    ],
     "require": {
         "php": ">=5.4.0",
         "illuminate/translation": "5.*",
@@ -18,11 +12,6 @@
     "autoload": {
         "psr-4": {
             "Aktiweb\\Translation\\": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.6.x-dev"
         }
     }
 }

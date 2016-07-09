@@ -18,7 +18,6 @@ class CreateTranslationsTable extends Migration {
             $table->string('group', 25);
             $table->string('name', 50);
             $table->text('value')->nullable();
-            $table->timestamps();
 
             $table->index(['locale', 'group']);
             $table->unique(['locale', 'group', 'name']);
