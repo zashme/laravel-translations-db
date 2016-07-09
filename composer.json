@@ -2,6 +2,7 @@
     "name": "aktiweb/laravel-translations-db",
     "description": "A database translations implementation for Laravel 5",
     "license": "GPL2",
+    "version": "0.6.0",
     "keywords": [
         "laravel",
         "translation",
