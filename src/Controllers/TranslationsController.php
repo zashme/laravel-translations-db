@@ -1,6 +1,6 @@
-<?php namespace Hpolthof\Translation\Controllers;
+<?php namespace Zash\Translation\Controllers;
 
-use Hpolthof\Translation\TranslationException;
+use Zash\Translation\TranslationException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Stichoza\GoogleTranslate\TranslateClient;

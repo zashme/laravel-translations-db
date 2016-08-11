@@ -1,4 +1,4 @@
-<?php namespace Hpolthof\Translation;;
+<?php namespace Zash\Translation;;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Translation\LoaderInterface;

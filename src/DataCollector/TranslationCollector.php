@@ -1,4 +1,4 @@
-<?php namespace Hpolthof\Translation\DataCollector;
+<?php namespace Zash\Translation\DataCollector;
 
 use DebugBar\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\Util\ValueExporter;

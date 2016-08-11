@@ -1,8 +1,5 @@
 ## Localization from a database
 
-[![Latest Stable Version](https://poser.pugx.org/hpolthof/laravel-translations-db/v/stable.svg)](https://packagist.org/packages/hpolthof/laravel-translations-db)
-[![License](https://poser.pugx.org/hpolthof/laravel-translations-db/license.svg)](https://packagist.org/packages/hpolthof/laravel-translations-db)
-[![Total Downloads](https://poser.pugx.org/hpolthof/laravel-translations-db/d/total.png)](https://packagist.org/packages/hpolthof/laravel-translations-db)
 
 This package was created, as an **in-place replacement** for the default TranslationServiceProvider and mend for everyone who got tired of collecting translations in language files and maintaining dozens
 of arrays, filled with lots and lots of keys. Keys will be added to the database **automatically**, so no more hussling with
@@ -16,10 +13,10 @@ adding your keys to the translations file, automatic translation with **Google T
 Require this package with composer:
 
 ```
-composer require hpolthof/laravel-translation-db
+composer require zash/laravel-translation-db
 ```
 > Like to live on the edge?
-> Use: ```composer require 'hpolthof/laravel-translations-db:*@dev'```
+> Use: ```composer require 'zash/laravel-translations-db:*@dev'```
 
 After updating composer, we'll have to replace the TranslationServiceProvider the our ServiceProvider in config/app.php.
 
@@ -29,7 +26,7 @@ Find:
 ```
 and Replace this with:
 ```
-'Hpolthof\Translation\ServiceProvider',
+'Zash\Translation\ServiceProvider',
 ```
 
 The ServiceProvider will now be loaded. To use this package properly you'll also need the create a table in your database,
@@ -37,7 +34,7 @@ this can be achieved by publishing the config and migration of this package.
 
 Run the following command:
 ```
-php artisan vendor:publish --provider='Hpolthof\Translation\ServiceProvider'
+php artisan vendor:publish --provider='Zash\Translation\ServiceProvider'
 ```
 and afterwards run your migrations:
 ```

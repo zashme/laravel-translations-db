@@ -1,12 +1,12 @@
 {
-  "name": "hpolthof/laravel-translations-db",
-  "description": "A database translations implementation for Laravel 5.",
+  "name": "zash/laravel-translations-db",
+  "description": "A database translations implementation for Laravel 5, forked from hpolthof/laravel-translations-db",
   "license": "GPL2",
   "keywords": ["laravel", "translation", "localization", "database"],
   "authors": [
     {
-      "name": "Paul Olthof",
-      "email": "hpolthof@gmail.com"
+      "name": "Alexandru Fiodorov",
+      "email": "zash@zash.me"
     }
   ],
   "require": {
@@ -19,7 +19,7 @@
 
   "autoload": {
     "psr-4": {
-      "Hpolthof\\Translation\\": "src"
+      "Zash\\Translation\\": "src"
     }
   },
   "extra": {

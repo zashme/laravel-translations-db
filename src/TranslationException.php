@@ -1,4 +1,4 @@
-<?php namespace Hpolthof\Translation;;
+<?php namespace Zash\Translation;;
 
 class TranslationException extends \RuntimeException {
 
