@@ -12,4 +12,6 @@ return [
     'database' => 'mysql', //Database connection name to use
 
     'fallback_locale' => 'de',
+
+    'add_new_translations' => false, // Add not found translations to DB
 ];

@@ -60,8 +60,10 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
         foreach ($this->parseLocale($locale) as $l) {
             $this->load($namespace, $group, $l);
             $line = $this->getLine($namespace, $group, $l, $item, $replace);
-            if (! is_null($line)) {
+            if (!is_null($line)) {
                 break;
+            } elseif (\Config::get('translation-db.add_new_translations')) {
+                $this->database->addTranslation($l, $group, $key);
             }
         }
 

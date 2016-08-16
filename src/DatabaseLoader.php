@@ -64,7 +64,6 @@ class DatabaseLoader implements LoaderInterface {
 
         if($item === null) {
             $data = compact('locale', 'group', 'name');
-            $data = array_merge($data, ['updated_at' => date_create(), 'created_at' => date_create()]);
             \DB::connection(\Config::get('translation-db.database'))->table('translations')->insert($data);
         }
     }
