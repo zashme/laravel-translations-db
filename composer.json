@@ -2,6 +2,7 @@
   "name": "zash/laravel-translations-db",
   "description": "A database translations implementation for Laravel 5, forked from hpolthof/laravel-translations-db",
   "license": "GPL2",
+  "version": "0.6.0",
   "keywords": ["laravel", "translation", "localization", "database"],
   "authors": [
     {
@@ -13,10 +14,8 @@
     "php": ">=5.4.0",
     "illuminate/translation": "5.*",
     "illuminate/database": "5.*",
-    "illuminate/cache": "5.*",
-    "stichoza/google-translate-php": "~3.1"
+    "illuminate/cache": "5.*"
   },
-
   "autoload": {
     "psr-4": {
       "Zash\\Translation\\": "src"
@@ -24,7 +23,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.4.x-dev"
+      "dev-master": "0.6.0-dev"
     }
   }
 }
