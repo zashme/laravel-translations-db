@@ -25,7 +25,7 @@ class DatabaseLoader implements LoaderInterface {
         return \DB::connection(\Config::get('translation-db.database'))->table('translations')
             ->where('locale', $locale)
             ->where('group', $group)
-            ->lists('value', 'name');
+            ->pluck('value', 'name');
     }
 
     /**
@@ -40,18 +40,25 @@ class DatabaseLoader implements LoaderInterface {
      */
     public function addNamespace($namespace, $hint) {}
 
+
     /**
      * Adds a new translation to the database
      *
      * @param string $locale
+     * @param string $namespace
      * @param string $group
      * @param string $key
-     * @return void
      */
-    public function addTranslation($locale, $group, $key)
+    public function addTranslation($locale, $namespace, $group, $key)
     {
         // Extract the real key from the translation.
-        if (preg_match("/^{$group}\.(.*?)$/sm", $key, $match)) {
+        if ($namespace === '*'){
+            $regex = "/^{$group}\.(.*?)$/sm";
+        } else {
+            $regex = "/^{$namespace}::{$group}\.(.*?)$/sm";
+        }
+
+        if (preg_match($regex, $key, $match)) {
             $name = $match[1];
         } else {
             throw new TranslationException('Could not extract key from translation.');

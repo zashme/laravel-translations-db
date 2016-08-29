@@ -63,7 +63,7 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
             if (!is_null($line)) {
                 break;
             } elseif (\Config::get('translation-db.add_new_translations')) {
-                $this->database->addTranslation($l, $group, $key);
+                $this->database->addTranslation($l, $namespace, $group, $key);
             }
         }
 
@@ -101,7 +101,7 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
      */
     protected function loadCached($locale, $group, $namespace)
     {
-        $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group;
+        $cacheIdentifier = \Config::get('translation-db.cache_prefix') . '.' . $locale . '.' . $group . '::' . $namespace;
 
         return \Cache::tags(\Config::get('translation-db.cache_tag'))
             ->rememberForever($cacheIdentifier, function () use ($locale, $group, $namespace) {

@@ -11,19 +11,19 @@ class ServiceProvider extends \Illuminate\Translation\TranslationServiceProvider
      */
     protected $defer = false;
 
-	protected $commands = [
-		'Zash\Translation\Console\Commands\DumpCommand',
-		'Zash\Translation\Console\Commands\FetchCommand',
-	];
+    protected $commands = [
+        'Zash\Translation\Console\Commands\DumpCommand',
+        'Zash\Translation\Console\Commands\FetchCommand',
+    ];
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->mergeConfigFrom(__DIR__.'/../config/translation-db.php', 'translation-db');
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/translation-db.php', 'translation-db');
 
         $this->registerDatabase();
         $this->registerLoader();
