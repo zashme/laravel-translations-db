@@ -14,4 +14,6 @@ return [
     'fallback_locale' => 'de',
 
     'add_new_translations' => false, // Add not found translations to DB
+
+    'add_to_all_locales' => true, // Add not found translations to DB for all locales
 ];
