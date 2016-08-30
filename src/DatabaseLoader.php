@@ -72,8 +72,15 @@ class DatabaseLoader implements LoaderInterface {
         if($item === null) {
             if (\Config::get('translation-db.add_to_all_locales', true)) {
                 foreach (\Config::get('app.locales') as $langKey => $langName) {
-                    $data = ['locale' => $langKey, 'group' => $group, 'name' => $name];
-                    \DB::connection(\Config::get('translation-db.database'))->table('translations')->insert($data);
+
+                    $itemNew = \DB::connection(\Config::get('translation-db.database'))->table('translations')
+                        ->where('locale', $langKey)
+                        ->where('group', $group)
+                        ->where('name', $name)->first();
+                    if ($itemNew === null) {
+                        $data = ['locale' => $langKey, 'group' => $group, 'name' => $name];
+                        \DB::connection(\Config::get('translation-db.database'))->table('translations')->insert($data);
+                    }
                 }
             } else {
                 $data = compact('locale', 'group', 'name');
